@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZPool", "ZPool.csproj", "{45A21352-8815-446F-AC89-513F452CBED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZPoolTests", "..\ZPoolTests\ZPoolTests.csproj", "{EF3AC832-E933-4C11-BC29-B027E95564BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZPoolTests1", "..\ZPoolTests1\ZPoolTests1.csproj", "{00F9B237-C8B4-4136-81B5-3102B4A8A10A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45A21352-8815-446F-AC89-513F452CBED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A21352-8815-446F-AC89-513F452CBED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A21352-8815-446F-AC89-513F452CBED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A21352-8815-446F-AC89-513F452CBED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF3AC832-E933-4C11-BC29-B027E95564BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF3AC832-E933-4C11-BC29-B027E95564BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF3AC832-E933-4C11-BC29-B027E95564BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF3AC832-E933-4C11-BC29-B027E95564BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F9B237-C8B4-4136-81B5-3102B4A8A10A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F9B237-C8B4-4136-81B5-3102B4A8A10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F9B237-C8B4-4136-81B5-3102B4A8A10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F9B237-C8B4-4136-81B5-3102B4A8A10A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87BFC28A-71C2-4840-ADAD-8DD4098BBA2B}
+	EndGlobalSection
+EndGlobal

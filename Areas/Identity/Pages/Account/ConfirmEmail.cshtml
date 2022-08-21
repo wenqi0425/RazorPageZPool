@@ -1,0 +1,15 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+
+<h1>@Model.StatusMessage</h1>
+
+@if (Model.WelcomeMessage)
+{
+    <p>You can <a asp-area="Identity" asp-page="/Account/Login">log in</a> now.</p>
+
+    <p>If you wish to register a car, <a asp-area="Identity" asp-page="/Account/Manage/CreateCar">click here</a> and after Login you will be redirected to the car registration form.</p>
+}
+

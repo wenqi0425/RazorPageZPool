@@ -1,0 +1,58 @@
+﻿@page
+@model ZPool.Areas.Identity.Pages.Account.Manage.SelectAvatarModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+
+<h3> Select your avatar </h3>
+
+<br />
+<form method="post">
+    <p>
+        <img src="~/images/default.png" id="photo" height="80" width="80">
+        <img src="~/images/space.png" id="photo" height="100" width="20">
+        <img src="~/images/N1.jpg" id="photo" height="100" width="100">
+        <img src="~/images/space.png" id="photo" height="100" width="20">
+        <img src="~/images/N2.jpg" id="photo" height="100" width="100">
+        <img src="~/images/space.png" id="photo" height="100" width="20">
+        <img src="~/images/N3.jpg" id="photo" height="100" width="100">
+        <img src="~/images/space.png" id="photo" height="100" width="20">
+        <img src="~/images/N4.jpg" id="photo" height="80" width="80">
+        <img src="~/images/space.png" id="photo" height="100" width="20">
+        <img src="~/images/N5.jpg" id="photo" height="100" width="100">
+    </p>
+    <p>
+        <input type="radio" id="UserAvatar1" value="default.png" name="UserAvatarName" asp-for="@Model.UserAvatarName">
+        <label for="default">default avatar</label>
+        <img src="~/images/space.png" id="photo" height="100" width="20">
+
+        <input type="radio" id="UserAvatar2" value="N1.jpg" name="UserAvatarName" asp-for="@Model.UserAvatarName">
+        <label for="a1">avatar 1</label>
+        <img src="~/images/space.png" id="photo" height="100" width="40">
+
+        <input type="radio" id="UserAvatar3" value="N2.jpg" name="UserAvatarName" asp-for="@Model.UserAvatarName">
+        <label for="a2">avatar 2</label>
+        <img src="~/images/space.png" id="photo" height="100" width="50">
+
+        <input type="radio" id="UserAvatarName4" value="N3.jpg" name="UserAvatarName" asp-for="@Model.UserAvatarName">
+        <label for="a3">avatar 3</label>
+        <img src="~/images/space.png" id="photo" height="100" width="40">
+
+        <input type="radio" id="UserAvatarName5" value="N4.jpg" name="UserAvatarName" asp-for="@Model.UserAvatarName">
+        <label for="a4">avatar 4</label>
+        <img src="~/images/space.png" id="photo" height="100" width="40">
+
+        <input type="radio" id="UserAvatarName6" value="N5.jpg" name="UserAvatarName" asp-for="@Model.UserAvatarName">
+        <label for="a5">avatar 5</label>
+    </p>
+    <input type="hidden" asp-for="@Model.UserAvatarName" />
+    <input type="submit" value="Save" class="btn btn-success rounded-border" />
+    <a asp-page="./Index">Back to Profile</a>
+
+</form> 
+
+
+
+

@@ -1,0 +1,100 @@
+﻿@page
+@model ZPool.Areas.Identity.Pages.Account.Manage.MyBookingsModel
+@{
+    ViewData["Title"] = "My Bookings";
+    ViewData["ActivePage"] = ManageNavPages.MyBookings;
+}
+
+<h3> My Bookings</h3><br/>
+<p>
+    <a asp-page="/Rides/GetRides" class="btn btn-outline-success rounded-border">Book a Ride</a>
+</p>
+
+<form asp-page-handler="StatusFilter" method="post">
+    <p>
+        Search Booking Status: <input type="text" asp-for="StatusCriteria" class="form-control rounded-border" style="max-width: 10rem" />
+        <br/>
+        <input type="submit" value="Filter" class="btn btn-success rounded-border" />
+        <a asp-page="Identity/Account/Manage/MyBookings" class="btn text-primary">Back to Full List </a>
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width:50px"> Date & Time  </th>
+            <th style="width:600px"> From </th>
+            <th style="width:600px"> To </th>
+            <th style="width:800px"> Driver / Profile </th>
+            <th style="width:1000px"> Car </th>
+            <th style="width:10px"> Status </th>
+            <th style="width:10px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var b in Model.MyBookings)
+            {
+                <tr>
+                    <td>  @b.Ride.StartTime </td>
+                    <td>  @b.PickUpLocation </td>
+                    <td>  @b.DropOffLocation </td>
+                    <td>
+                        @b.Ride.Car.AppUser
+                        <a asp-page="./ReadOnlyProfilePage" asp-route-id="@b.Ride.Car.AppUser.Id">
+                            @{
+                                var imageFlag = b.Ride.Car.AppUser.AvatarName;
+
+                                if (string.IsNullOrEmpty(b.Ride.Car.AppUser.AvatarName) || b.Ride.Car.AppUser.AvatarName.Equals("default.png"))
+                                {
+                                    <img src="~/images/default.png" id="photo" height="50" width="50" title="click me">
+                                }
+                                else
+                                {
+                                    if (imageFlag.Equals("N1.jpg"))
+                                    {
+                                        <img src="~/images/N1.jpg" id="photo" height="50" width="50" title="click me">
+                                    }
+
+                                    if (imageFlag.Equals("N2.jpg"))
+                                    {
+                                        <img src="~/images/N2.jpg" id="photo" height="50" width="50" title="click me">
+                                    }
+
+                                    if (imageFlag.Equals("N3.jpg"))
+                                    {
+                                        <img src="~/images/N3.jpg" id="photo" height="50" width="50" title="click me">
+                                    }
+
+                                    if (imageFlag.Equals("N4.jpg"))
+                                    {
+                                        <img src="~/images/N4.jpg" id="photo" height="50" width="50" title="click me">
+                                    }
+
+                                    if (imageFlag.Equals("N5.jpg"))
+                                    {
+                                        <img src="~/images/N5.jpg" id="photo" height="50" width="50" title="click me">
+                                    }
+                                }
+                            }
+                        </a>
+                    </td>
+                    <td>  @b.Ride.Car.Color / @b.Ride.Car.Brand @b.Ride.Car.Model / @b.Ride.Car.NumberPlate </td>
+                    <td>  @b.BookingStatus </td>
+
+                    @if ((b.BookingStatus == "Accepted" || b.BookingStatus == "Pending") && b.Ride.StartTime>DateTime.Now)
+                    {
+                        <td>
+                            <div class="form group">
+                                <form asp-page-handler="Cancel" method="post">
+                                    <button class="btn btn-danger rounded-border">Cancel</button>
+                                    <input type="hidden" name="id" value="@b.BookingID" />
+                                </form>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        }
+</table>

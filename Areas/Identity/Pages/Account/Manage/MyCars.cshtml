@@ -1,0 +1,54 @@
+﻿@page
+@model ZPool.Areas.Identity.Pages.Account.Manage.MyCarsModel
+@{
+    ViewData["Title"] = "My Cars";
+    ViewData["ActivePage"] = ManageNavPages.MyCars;
+}
+<h3> My Cars</h3>
+<hr><br>
+<p>
+    <a asp-page="./CreateCar" class="btn btn-outline-success rounded-border">Add New Car</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th> Color </th>
+        <th> Brand </th>
+        <th> Model </th>
+        <th> Number of Seats </th>
+        <th> Plate Number </th>  
+    </tr>
+    </thead>
+    <tbody class="va-middle">
+
+    @if (Model != null)
+    {
+        @foreach (var item in Model.Cars)
+        {
+
+            <tr>
+                <td>  @item.Color </td>
+                <td>  @item.Brand </td>
+                <td>  @item.Model </td>
+                <td>  @item.NumberOfSeats </td>
+                <td>  @item.NumberPlate </td>
+                <td style="white-space:nowrap;">  <a asp-page="./EditCar" asp-route-id="@item.CarID" style="text-decoration: none" alt="Edit">
+                    <button class="edit-btn ml-2">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    </a> 
+                    <a asp-page="./DeleteCar" asp-route-id="@item.CarID" style="text-decoration: none" alt="Delete">
+                        <button class="delete-btn ml-2">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </a> 
+                </td>
+            </tr>
+
+        }
+    }
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

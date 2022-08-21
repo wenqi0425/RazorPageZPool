@@ -1,0 +1,48 @@
+﻿@page
+@model ZPool.Pages.Administration.DeleteUserModel
+@{
+    ViewData["Title"] = "Admin: Delete User";
+}
+
+<div class="container">
+    <h4>Delete User</h4>
+    <div class="row">
+        <div class="col">
+            <h5>You are about to delete the following user.</h5>
+            <p>All cars, rides, bookings and messaged associated with this user will be deleted as well.</p>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    User Id
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.AppUser.Id
+                </dd>
+                <dt class="col-sm-2">
+                    Full Name
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.AppUser.FirstName @Model.AppUser.LastName
+                </dd>
+                <dt class="col-sm-2">
+                    Username
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.AppUser.UserName
+                </dd>
+                <dt class="col-sm-2">
+                    Email
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.AppUser.Email
+                </dd>
+            </dl>
+            <form method="post">
+                @*Query string*@
+                <button type="submit" asp-page-handler="Delete" asp-route-userId="@Model.AppUser.Id" class="btn btn-danger rounded-border">Delete</button>
+                <a asp-page="UserAdministration" class="btn btn-outline-primary rounded-border">Back to list</a>
+            </form>
+            
+
+        </div>
+    </div>
+</div>

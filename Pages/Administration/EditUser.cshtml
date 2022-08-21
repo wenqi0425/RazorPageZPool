@@ -1,0 +1,59 @@
+﻿@page 
+@model ZPool.Pages.Administration.EditUserModel
+@{
+    ViewData["Title"] = "Admin: Edit User Data";
+}
+
+<div class="container">
+    <h4>Edit User</h4>
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+    @if (Model.ErrorList.Count > 0)
+    {
+        foreach (var error in Model.ErrorList)
+        {
+            <span class="text-danger">@error.Description</span><br />
+        }
+    }
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="UserId">User Id</label>
+                    <input hidden asp-for="UserId" />
+                    <input disabled asp-for="UserId" value="@Model.UserId" class=" form-control rounded-border" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.FirstName">First Name</label>
+                    <input asp-for="Input.FirstName" class="form-control rounded-border" />
+                    <span asp-validation-for="@Model.Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.LastName">Last Name</label>
+                    <input asp-for="Input.LastName" class="form-control rounded-border" />
+                    <span asp-validation-for="@Model.Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.UserName">User</label>
+                    <input asp-for="Input.UserName" class="form-control rounded-border" />
+                    <span asp-validation-for="@Model.Input.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email">Email</label>
+                    <input asp-for="Input.Email" class="form-control rounded-border" />
+                    <span asp-validation-for="@Model.Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.EmailConfirmed">Email Confirmed</label>
+                    <select asp-for="Input.EmailConfirmed" class="form-control rounded-border">
+                        <option value="@true">Is confirmed</option>
+                        <option value="@false">Not confirmed</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary rounded-border">Save</button>
+                <a asp-page="/Administration/UserAdministration" class="btn btn-outline-primary rounded-border">Back to list</a>
+
+            </form>
+        </div>
+    </div>
+</div>

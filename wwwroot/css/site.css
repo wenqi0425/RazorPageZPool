@@ -1,0 +1,177 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+/*responsive*/
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-weight: normal;
+    font-size: 1.75rem;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.clickable {
+    cursor: pointer; 
+}
+
+.clickable:hover {
+    background-color: #fff387;
+}
+
+/* Colors for rating stars */
+.unchecked {
+    color: lightgrey;
+}
+
+.checked {
+    color: #fff387;
+}
+
+.delete-btn {
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.va-middle tr td {
+    vertical-align: middle;
+}
+
+.edit-btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    padding: 10px 14px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.i {
+    padding: 14px;
+}
+
+.nav-pills > li > a.active {
+    border-radius: 18px !important;
+    background-color: #fff387 !important;
+    color: #636363 !important;
+}
+
+.footer-link {
+    font-weight: 300;
+    color: black;
+    padding: 0;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.rounded-border {
+    border-radius: 18px;
+}
+
+.btn-yellow {
+    color: #636363;
+    background-color: #fff387;
+    box-shadow: 1px 1px 3px 1px #BEBEBE;
+    border-radius: 18px;
+}
+
+.btn-yellow:hover {
+    color: #000000;
+    box-shadow: 1px 2px 5px 2px #C0C0C0;
+}
+
+.bg-yellow {
+    background-color: #fff387;
+}
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}

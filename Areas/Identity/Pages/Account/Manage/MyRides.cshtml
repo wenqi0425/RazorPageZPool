@@ -1,0 +1,58 @@
+﻿@page
+@model ZPool.Areas.Identity.Pages.Account.Manage.MyRidesModel
+@{
+
+    ViewData["Title"] = "My Rides";
+    ViewData["ActivePage"] = ManageNavPages.MyRides;
+}
+
+@*ViewData["Title"] = "My Rides";*@
+<h3> My Rides</h3>
+</hr></br>
+<p>
+    <a asp-page="/Rides/CreateRide" class="btn btn-outline-success rounded-border">Add New Ride</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> Date & Time </th>
+            <th> From </th>
+            <th> To </th>
+            <th> Car</th>
+            <th> Seats Available </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+        @foreach (var r in Model._myRidesList)
+            {
+        <tr>
+            <td>  @r.StartTime </td>
+            <td>  @r.DepartureLocation </td>
+            <td>  @r.DestinationLocation </td>
+            <td>  @r.Car.Brand  @r.Car.Model </td>
+            <td>  @r.SeatsAvailable</td>
+            <td style="vertical-align: middle">  <a asp-page="./WhoBookTheRide" asp-route-id="@r.RideID">Bookings </a> </td>
+            <td style="vertical-align: middle"> <a href="/Rides/RideDetails/@r.RideID" class="text-primary">Details </a> </td>
+            <td style="vertical-align: middle; white-space:nowrap;">
+
+                @if(r.StartTime>DateTime.Now)
+                { 
+                <a href="/Rides/EditRide/@r.RideID" style="text-decoration: none" class="ml-2" alt="Edit">
+                    <button class="edit-btn">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </a>
+                }
+                <a asp-page="./DeleteMyRide" asp-route-id="@r.RideID" style="text-decoration: none" class="ml-2" alt="Delete">
+                    <button class="delete-btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </a>
+            </td>
+        </tr>
+            }
+        }
+</table>

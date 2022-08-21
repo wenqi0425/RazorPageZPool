@@ -1,0 +1,74 @@
+﻿protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            string proc = @"Create Proc spDeleteCarByID @CarID int as
+                                        BEGIN
+                                        delete
+                                        [Bookings]
+                                        From [Bookings]
+                                        inner join Rides on Rides.RideId = [Bookings].RideID
+                                        where rides.CarID = @CarID
+                                        delete from Rides where CarID = @CarID
+                                        delete from [Cars] where CarID = @CarID
+                                        select * from Cars
+                                        end";
+            migrationBuilder.Sql(proc);
+
+            string proc2 = @"
+            CREATE Proc[dbo].[spDeleteUserByID]
+            @AppUserID int
+                as
+                BEGIN
+
+            delete
+                [Bookings]
+
+            From[Bookings]
+
+            inner join[dbo].[AspNetUsers] on[AspNetUsers].Id = Bookings.AppUserID
+
+            where Bookings.AppUserID = @AppUserID
+
+            delete Rides
+
+            from Rides
+            inner join cars on rides.CarID = Cars.CarID
+
+            where cars.AppUserID = @AppUserID
+
+            delete from[Cars] where Cars.AppUserID = @AppUserID
+            Delete from[dbo].[Messages] where[SenderId] = @AppUserID or[ReceiverId] = @AppUserID
+
+            Delete from[AspNetUsers] where id = @AppUserID
+
+            select* from[AspNetUsers]
+            end";
+            migrationBuilder.Sql(proc2);
+
+
+            string proc3 = @"Create Proc spDeleteMessagesByID @AppUserID int as
+                                        BEGIN
+                                        delete
+                                        [Messages]
+                                        From [Messages]
+                                        where Messages.SenderId = @AppUserId
+                                        OR
+                                        Messages.ReceiverId = @AppUserID
+                                        select * from Messages
+                                        end";
+            migrationBuilder.Sql(proc3);
+
+
+
+}
+
+protected override void Down(MigrationBuilder migrationBuilder)
+{
+    string proc = @"Drop Proc spDeleteCarByID";
+    migrationBuilder.Sql(proc);
+
+    string proc2 = @"Drop Proc spDeleteUserByID";
+    migrationBuilder.Sql(proc2);
+
+    string proc3 = @"Drop Proc spDeleteUserByID";
+    migrationBuilder.Sql(proc3);
+}

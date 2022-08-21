@@ -1,0 +1,125 @@
+﻿@page
+@using ZPool.Models
+@model ZPool.Pages.Reviews.ReviewsModel
+@inject UserManager<AppUser> UserManager;
+@{
+    ViewData["Title"] = "Reviews";
+    ViewData["ActivePage"] = ManageNavPages.Reviews;
+}
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        @if (Model.Reviewee != Model.Reviewer)
+        {
+            <h4>Reviews of user @Model.Reviewee.UserName</h4>
+        }
+        else
+        {
+            <h4>My reviews</h4>
+        }
+
+    </div>
+
+    @if (Model.Reviewee != Model.Reviewer)
+    {
+        <form method="post">
+            <div class="row pt-4 d-flex justify-content-center">
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="control-label">To:</label>
+                        <input asp-for="@Model.Reviewee.UserName" disabled class="form-control rounded-border" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Date of the ride:</label>
+                        <select asp-for="@Model.RideId" class="form-control rounded-border" style="max-width: 13rem"
+                                asp-items="@Model.providedRides">  @*list*@ 
+                            <option value="">--Select a Ride--</option>
+                        </select>
+                        <span asp-validation-for="@Model.providedRides" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Rating value:</label>
+                        <select asp-for="@Model.NewReview.RateValue" class="form-control rounded-border" style="max-width: 13rem">
+                            <option value="">--Rating--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+
+                        </select>
+                        <span asp-validation-for="@Model.providedRides" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="control-label">Review text:</label>
+                        <textarea asp-for="@Model.NewReview.MessageBody" class="form-control rounded-border" rows="8"></textarea>
+                        <div asp-validation-summary="All" class="text-secondary"></div>
+                    </div>
+                    <input hidden asp-for="NewReview.RevieweeId" value="@Model.Reviewee.Id" />
+                    <input hidden asp-for="NewReview.ReviewerId" value="@Model.Reviewer.Id" />
+                </div>
+
+            </div>
+            <div class="row d-flex justify-content-center">
+                <button type="submit" asp-page-handler="Review" class="btn btn-yellow">Post</button>
+
+            </div>
+        </form>
+    }
+
+
+
+    <div class="row justify-content-center pt-4">
+
+        <div class="col-8 d-flex flex-column border rounded-border ">
+
+            @{
+                int x = Model.Reviews.Count > Model.ListLength ? Model.ListLength : Model.Reviews.Count;
+
+                for (int i = 0; i < x; i++)
+                {
+
+                    <!--Received reviews-->
+                    <div class="card rounded-border m-3 bg-yellow">
+                        <div class="card-body">
+                            <h5 class="card-title">From: @Model.Reviews[i].Reviewer.UserName</h5>
+                            <h6 class="card-subtitle mb-2">Review date: @Model.Reviews[i].ReviewDate</h6>
+                            <h6 class="card-subtitle mb-2">Departure Location: @Model.Reviews[i].Ride.DepartureLocation</h6>
+                            <h6 class="card-subtitle mb-2">Destination: @Model.Reviews[i].Ride.DestinationLocation</h6>
+                            <h6 class="card-subtitle mb-2">Start time: @Model.Reviews[i].Ride.StartTime</h6>
+                            <h6 class="card-subtitle mb-2">Rating value: @Model.Reviews[i].RateValue</h6>
+
+                            <p class="card-text">@Model.Reviews[i].MessageBody</p>
+
+                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="form-group">
+                                <form method="post" class="mx-3">
+                                    @*<input hidden asp-for="ReviewId" value="@Model.Reviews[i].ReviewId"/>*@
+                                    <button type="submit" class="btn btn-outline-danger rounded-border"
+                                            asp-page-handler="Delete" 
+                                            asp-route-reviewId="@Model.Reviews[i].ReviewId"
+                                            asp-route-revieweeId="@Model.Reviews[i].RevieweeId">Delete review</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="row justify-content-center pt-3">
+        <form method="post">
+            <input hidden type="number" asp-for="ListLength" value="@Model.ListLength" />
+            <button type="submit" asp-page-handler="Load" asp-route-id="@Model.Reviewee.Id" class="btn btn-outline-secondary rounded-border">Load more reviews</button>
+        </form>
+    </div>
+
+
+</div>

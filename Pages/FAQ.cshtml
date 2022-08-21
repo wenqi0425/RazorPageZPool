@@ -1,0 +1,657 @@
+﻿@page
+@model ZPool.Pages.Shared.FAQModel
+@{
+}
+<div class="text-center">
+    <h1>Frequently asked questions</h1>
+
+    <p>
+        <a class="btn btn-primary mt-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Driver
+        </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Cars
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+
+                            <h4>Why do I need to register my car?</h4>
+                            <p>
+                                In case you plan to be just a passenger who is using the application just for looking for rides and not for creating them, there is no need
+                                for you to register your car. In the other case, when you also want to be the one who is driving the other people to their destinations, to create
+                                the ride offers there is a need to have a car registered in your profile. Without it, it will not allow you to create a ride because no plate number will
+                                be available in the list which is a required field in the form.
+                            </p>
+
+                            <h4>What is needed for registering my car?</h4>
+                            <p>
+                                To register a car, you need to be logged in and  registered as a user. 
+                                Except for this step, in the registration form are fields like brand, model, number of seats and number plate which are necessary to fill.
+                                To get to the Registration form, please check the  "How to register a car"  question.
+                            </p>
+
+                            <h4>How to register a car?</h4>
+                            <p>
+                                Before registering your car, you need to be  logged in or create a new profile. The first way how to register a car is to follow the link on the account activation page, where you land clicking the link in the confirmation email. After logging in you will be redirected to the car registration form.
+                                Here you can fill all the information and click on "Create" button. The car will immediately appear in your list of cars.
+                            </p>
+                            <p>
+                                The other way is, when you are just logged in as a user, you need to open your personal "profile page" by clicking on your name up on the right side.
+                                On this page you can see "My cars" option in which there is a button for creating a new car. 
+                                After clicking on the button, you are redirected to the  registration form for cars.
+                                In case you decide not to create the car, you can click on "Back to My Cars" link under the registration form.
+                                As soon as you "save" all the information, the car is created and shown in your list of cars. The required fields details when registering a car are: 
+                                "Brand, Model, Number of seats and number plate.""
+                          
+                            </p>
+                            <p>
+                                In case you are still completely lost and have no idea how to access the registration form, here is the link! (You will need to log in first, in case you aren't yet)
+                                <br />
+                                <a asp-area="Identity" asp-page="/Account/Manage/CreateCar">Create a car</a>
+                            </p>
+
+                            <h4>Where can I see my registered cars?</h4>
+                            <p>
+                                You have to be logged in and have at least one car created. Just open your personal profile page by clicking on
+                                your name up on the right side. On this page you can see "My cars" option on the left side. 
+                                Here you will see all the cars you have registered shown in a list.
+                            </p>
+
+                            <h4>How to edit a car?</h4>
+                            <p>
+                                You have to be logged in and have the car created to edit it.
+                                To do so, you need to open your personal profile page by clicking on your name up on the right side.
+                                On this page you can see "My cars" option on the left side in which the list of cars registered by you is shown.
+                                On the right side of each car in the end of the line is the option for Editing the car "The edit button is blue icon with a pen on it".
+                                After clicking on the blue button with pen the page for editing is opened. Be careful to choose the right car you want to edit.
+                                To make sure  you choose the right one, all the information is displayed on this Edit Page.
+                                If you find out you do not want to edit  this one car, you can easily click on the "Back to My Cars" link in the end of the editing form,  and choose the right car.
+                                If you are sure you want to edit this car, write the new information where it is needed and click on the "Save" button in the end  of the form.
+                                After this action the list of your cars is displayed again with all the new information.
+                            </p>
+
+                            <h4>How to delete a car?</h4>
+                            <p>
+                                You have to be logged in and have the car created to delete it.
+                                To do so, you need to open your personal profile page by clicking on your name up on the right side.
+                                On this page you can see "My cars" option on the left side, where all the cars you have registered are shown in a list.
+                                On the right side of each car at the end of the line is the option for Deleting the car.
+                                After clicking on the red button with  a trash can the page for deleting is open.
+                                Be careful to choose the right car you want to delete.
+                                To make sure you choose the right one, all the information is displayed on this Delete Page.
+                                If you find out you do not want to delete  this precise  car, you can easily click on the "Back to My Cars" link at the end,  and choose the right car.
+                                If you are sure you want to delete this precise car, click on the red "Delete" button. 
+                               After this action, the list of your cars is displayed again. 
+                               The deleted car is not displayed. Neither is the  create a ride button visible. 
+                               After you delete a car,  all bookings and rides connected to this car are also deleted.
+                            </p>
+                            <p>
+                                <b>!!! Deleting a car deletes everything attached to that car i.e rides and bookings!!!</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Rides
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+
+                                    <h4>What does it mean to create a ride?</h4>
+                                    <p>
+                                        If you want to offer a ride to other people,  who want to go to the same destination as you are, you can create a ride.
+                                        People can then make a booking of your ride. 
+                                        If you accept them, you will all drive to the destination together.
+
+                                    </p>
+
+                                    <h4>What will I earn when I create  and make a ride with passengers?</h4>
+                                    <p>
+                                        Our application is fully without money. There is no exchange of money between the driver and the passengers.
+                                        It means, no one will pay you for driving him or her.  You will also not recieve any payment for the ride. 
+                                        Our Carpooling concept is mainly based on saving the environment from carbon emmissions 
+                                        and giving the car poolers a platform where they can make new friends. 
+
+                                    <h4>How to create a ride?</h4>
+                                    <p>
+                                        To create a ride you need to be logged in and have at least one car created in your list of cars on your personal profile page.
+                                        After these two conditions are successfully completed, click on the rides page.
+                                        Here you can see "Add new ride"  button which will redirect you to the  form for filling all the necessary information.
+                                        In case you decide not to create the ride, just click on the link "Back to My rides" at the end of the page.
+                                        Otherwise, you should fill out all the required fields on this form.
+                                        After you fill all of them, click on "Create" button and you are going
+                                        to be redirected to "List of all rides" where your newly created ride is will be displayed.
+                                    </p>
+                                    <p>
+                                        Other way is to open your personal profile page by clicking on your name up on the right side and 
+                                        choose the "My Rides" option on the left side of the page.
+                                        Here you can see the list of your Rides and also a button "Add New Ride" which will redirect you to the form for creating a ride.
+                                        Then proceed the ride creation as mentioned above.
+                                    </p>
+                                    <p>
+                                        In case you are still completely lost and have no idea how to access the form for creating a ride, 
+                                        here is the link but don't forget to be logged in and have a car created!<br />
+                                        <a asp-page="/Rides/CreateRide">Create a ride</a>
+                                    </p>
+
+                                    <h4>Where can I see the list of my rides?</h4>
+                                    <p>
+                                        You have to be logged in and have at least one ride created.
+                                        Just open your personal profile page by clicking on your name up on the right side.
+                                        On this page you can see "My Rides" on the left side where the list of rides you created are displayed.
+                                    </p>
+
+                                    <h4>How to edit a ride?</h4>
+                                    <p>
+                                        To edit a ride, you have to be logged in and have at least one ride created.
+                                        Go to your personal profile page by clicking on your name up on the right side.
+                                        Now on the left side choose the "My rides" option which shows the page with the list of all your created rides.
+                                        Here in every line is a blue button with a pen inside for editing exactly that one ride.
+                                        Click on that and to make sure you are editing the right ride. Fill in the information you want to edit and click "Save" button.
+                                        This action will  move you back to the list of all rides where the information is  going to be changed immediately.
+                                        If you find out you do not wish to edit this ride, just click on the link "Back To My Rides" which will take you back to the list of rides.
+                                    </p>
+                                    <p>
+                                        Another way to edit a ride is to open a page with Rides where you can see also your rides.
+                                        Next to each your ride you can see the blue button with a pen inside for editing it.
+                                        This button will take  you to the "Edit Page" for the ride.
+                                        To make sure you are editing the right ride, all the information about it are provided.
+                                        If you find out you do not wish to edit this one ride, just click on the link "Back To My Rides" which will move you back to the list of your rides.
+                                        If you are sure this one is the ride you want to edit, change all the necessary information you need and click on "Save Changes" button.
+                                        This action will  move you back to the list of all rides where the information are going to be changed immediately.
+                                    </p>
+                                    <p>
+                                        One other way is to either open "Rides" Page, choose the ride you want to edit and click on "Details" at the end of the line of the ride,
+                                        or choose the ride from "My Rides" option in your personal profile page and  again, click on details in the end of the line of the ride which is supposed to be changed.
+                                        Both links will move you to detailed page of your ride where on the bottom of the page you can see again button for Editing Ride.
+                                        To make sure you are editing the right ride, all the information about it is provided.
+                                        If you find out you do not wish to edit this  ride, just click on the link "Back To Rides" which will take you back to the list of rides.
+                                        If you are sure this one is the ride you want to edit, change all the necessary information you need and click on "Save Changes"  button.
+                                        This action will take you back to the list of all rides where the information is going to be changed immediately.
+                                    </p>
+
+                                    <h4>How to cancel or delete a ride?</h4>
+                                    <p>
+                                        To cancel a ride, you have to be logged in and have at least one ride created.
+                                        Go to your personal profile page by clicking on your name up on the right side.
+                                        Now on the left side choose the My rides option which shows the page with all your created rides.
+                                        Each ride has on the right side of lines the red button with trash can inside for cancelling.
+                                        After clicking on it you are going to be redirected to the page which asks you if you are really sure you want to delete the ride.
+                                        Make sure you chose the right one by checking all the information on the current page and confirm it by clicking on "Delete"  button.
+                                        The ride will be immediately deleted and not displayed to others anymore.
+                                        In case you find out you do not wish to delete exactly this one ride, 
+                                        click on "Back to My Rides" link on the bottom of page and it will take you back to the list of your rides where you can choose the right ride.
+                                    </p>
+                                    <p>
+                                        Another way to delete a ride is to open a page with "Rides" where you can see also your rides.
+                                        Next to each your ride you can see the red button with a trash icon  for deleting it.
+                                        This link will move you to the "Delete" Page for the ride.
+                                        To make sure you are deleting the right one, all the information about this ride is displayed.
+                                        If you find out you do not wish to delete this one ride, just click on the link "Back To My rides" which will take you back to the list of rides.
+                                        If you are sure this one is the ride you want to delete click on "Delete"  button.
+                                        This action will  take  you back to the list of rides where the ride is not shown anymore.
+
+                                    </p>
+                                    <p>
+                                        One more way is to either open "Rides" Page.
+                                        Choose the ride you want to delete.
+                                        Click on "Details" at  the end of the line of the ride.
+                                        Or, choose the ride from "My Rides" option in your personal profile page.
+                                        Click on "details" at the end of the line of the ride which is supposed to be changed.
+                                        Both links will take  you to "details" page of your ride where at the bottom of the page you can see the button for Deleting Ride.
+                                        To make sure you are deleting the right one, all the information about this ride is deleted.
+                                        Click on the "Delete ride" button displayed on the screen and the ride will be deleted immediately.
+
+                                    </p>
+                                    <p>
+                                        <b>!!!When a ride is deleted, all its corresponding bookings are also deleted. !!!</b>
+                                    </p>
+
+                                    <h4>Can I cancel the ride even if someone has booked it?</h4>
+                                    <p>
+                                        Yes, you can cancel a ride anytime before it happens. The cancellation is free.
+                                        So even if someone has booked your ride, you can still cancel it.
+                                        You can find more information about how to do so in the previous question.
+                                    </p>
+
+                                    <h4>How do I know if someone has booked my ride?</h4>
+                                    <p>
+                                        After another user books your ride, you will get a notification and also a message. 
+                                        All your notifications can be found under the bell next to your name up on the right side.
+                                        Next to the notification bell, there are messages.
+                                        Any new messages are reflected with a red  circle around the message icon i.
+                                    </p>
+                                    <p>
+                                        Another place where you can find out if someone has booked your ride is on your personal profile page.
+                                        There when you choose the "My Rides" option on the left side, the list of your rides is displayed.
+                                        Choose the ride for which you wish to see the bookings and click on the "Bookings" link.
+                                        To make sure you choose the right ride, all the rides information is displayed.
+                                        Under this information, the people who have booked your ride are listed also with their booking status.
+                                        If you wish to check the accounts, just click on their avatars (pictures).
+
+                                    </p>
+                                    <p>
+                                        One more way how to see people who have booked your ride and where you can accept or reject them is on "Booking" page on the top next to the page with "Rides". 
+                                        Here you can see the list of all people who booked your ride.
+                                    </p>
+
+                                    <h4>Can I reject someone who booked my ride?</h4>
+                                    <p>If for whatever reason you do not want to ride with a particular person, you can reject the booking offer.</p>
+
+                                    <h4>Can I reject someone even after I accepted his or her booking request?</h4>
+                                    <p>
+                                        You are allowed to change your opinion about the people who are going to drive with you anytime.
+                                        So even if you had accepted someone's booking offer previously, you can still cancel this booking of your ride. 
+                                        Just open the page "Bookings" next to the "Rides" page on the top of the page.
+                                        Here you can see "Cancel" button next to the person who you accepted. 
+                                        After clicking on it, the passenger's bookings will be cancelled.
+                                    </p>
+                                    <p>
+                                        Another way on how to cancel an already accepted booking is to open your personal profile page and then open "My Rides" section.
+                                        Here click on "Bookings" link in the ride you want to see.
+                                        Next to each person on the page there are options.
+                                        If someone is accepted there you can also see "Cancel" button next to it. 
+                                        After clicking on it, the passenger's bookings will be cancelled.
+                                    </p>
+
+                                    <h4>How to contact people who are taking my ride?</h4>
+                                    <p>
+                                        At present time, the only way to directly contact users who booked your ride, is to reply on the automatically sent booking message.
+                                        It means you have to open the "messages" which are between your name and notification bell on the top of the page.
+                                        Here you see the message from the person who booked your ride which was automatically sent to you.
+                                        At the end of the message, there is the button "Reply".
+                                        After you click on it, the passenger's name will appear as the person who you are going to send the message to.
+                                        Now you can write what you want and just click on "send" button.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        <button class="btn btn-primary mt-3" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+            Passenger
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample1">
+        <div class="card card-body">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Bookings
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+
+                            <h4>What does it mean to make a booking?</h4>
+                            <p>
+                                If you want to join a ride with someone from one place to the other on exact date, you can make a booking of his or her ride.
+                                After the driver accepts your request, you can drive together to your destination.
+
+                            </p>
+
+                            <h4>How much does it cost to take a ride?</h4>
+                            <p>Our application is free of charge.
+                               It means you will not be charged anything as well as no one will pay you for anything.</p>
+
+                            <h4>How to make a booking?</h4>
+                            <p>
+                                You need to be logged in to book a ride.
+                                Go to the page with "Rides" where you can find the specific ride for you.
+                                After you have one, click on the  "Details" link in the end of the line where is the ride.
+                                You will see the page with all details and the driver.
+                                On the right side, there is a button for booking  the ride.
+                                After you click on it, you will see your list of bookings with the booking status. 
+                                Now you have to wait until the driver accepts or rejects your request.
+                                In case you have already booked the ride the button for booking it will not allow you to book it once again 
+                                and the system will not allow you to book your own ride.
+                            </p>
+                            <p>
+                                You can also open your personal profile page and choose "My bookings" option on your left. 
+                                Here you can see a button "Book a Ride" which will redirect you to the page with all rides. 
+                                Here continue as mentioned above.
+                            </p>
+
+                            <h4>Why is the map in details of specific ride not showing the route?</h4>
+                            <p>
+                                In case the driver has misspelt the departure location or the destionation, the map cannot identify where it is starting or ending.
+                                If the map does not know the exact points, then it cannot also calculate how long the journey will take. 
+                            </p>
+
+                            <h4>Where can I see my bookings?</h4>
+                            <p>
+                                To see your bookings you need to be logged in.
+                                Open your personal profile page and choose My bookings section. 
+                                Here you can see the list of all your bookings with their corresponding status.
+                            </p>
+
+                            <h4>What does the booking status mean?</h4>
+                            <p>
+                                Our system has exactly 4 different booking status.
+                                "Pending" means that the driver has not accepted or rejected your booking.
+                                "Accepted" means that the driver accepted your booking.
+                                "Rejected" means that the driver does not wish to drive with you.
+                                "Cancelled" means that even if you were accepted, the driver changed his mind and decided to cancel the booking request.
+                                Alternatively, something might have happened and the driver eventually decided to cancel your acceptance
+                                or you can also be the one who eventually decides   not to take the ride with the driver and cancels the booking.
+
+                            </p>
+
+                            <h4>Is it possible to cancel my booking?</h4>
+                            <p>
+                                You can always cancel the booking in case you cannot join the ride. 
+                                You can do so on your own profile page in "My Bookings" section. 
+                                There you can find the "Cancel" button next to the booking you wish to cancel. 
+                                Make sure you are cancelling the right booking.
+                            </p>
+
+                            <h4>Is it possible to cancel the booking even after the driver has confirmed it?</h4>
+                            <p>You can always cancel the booking if you cannot join the ride. 
+                                To find more information how to cancel it, check the previous question "Is it possible to cancel my booking?"</p>
+
+                            <h4>How do I know if my booking has been accepted by the driver?</h4>
+                            <p>You can see it under the notification bell or under "My bookings" on your personal profile page. 
+                            Each of these pages displays the status of your bookings.</p>
+
+                            <h4>How to contact a driver who accepted my booking?</h4>
+                            <p>
+                                To contact the driver, open the "details" page of the ride and there you can see the area with "Send me a message". 
+                                This message is sent to the driver. 
+                                To find out more about  the Messages, check the Messages section in questions for "everyone" using the App.
+                            </p>
+
+                            <h4>What is the search function in bookings for?</h4>
+                            <p>
+                                The search function on pages with bookings is for searching the bookings with the same status.
+                                It means, when you want to see all Accepted bookings for example, you can just type "Accepted" into the search field and you will see all of them.
+                                By this way you can for example find out which driver is rejecting you or cancelling your bookings more often than others.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        <a class="btn btn-primary mt-3" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+            Everyone using the App
+        </a>
+    </p>
+    <div class="collapse" id="collapseExample2">
+        <div class="card card-body">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Messages
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+
+                            <h4>What are the messages for?</h4>
+                            <p>The messages section is used by the driver and the passenger to correspond to each other.</p>
+
+                            <h4>How to send a message?</h4>
+                            <p>
+                                You can contact a driver who offered a ride, by using the "message me" field in the details page of that ride.
+                                After you send the message to the driver he or she can see it in the messages inbox and reply to it.
+                                When you have booked a ride, the driver gets an automatic message. 
+                                The driver can easily click on "Reply" on this automatic message and write you some more information about the ride.
+                                If the conversation contains more messages, you can use "Reply" button after each message.
+                            </p>
+
+                            <h4>Where can I see the messages I received?</h4>
+                            <p>The received messages are available in the messages inbox. 
+                            You can find it on the top on the right hand side, next to the notification bell.</p>
+                        </div>
+                    </div>
+
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingFive">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        Profile
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                                <div class="card-body">
+
+                                    <h4>Where can I find my personal profile page?</h4>
+                                    <p>
+                                        To see your profile page you have to be logged in.
+                                        Then just click up on the right side on your name and it will automatically redirect you to your personal profile page.
+                                    </p>
+
+                                    <h4>What can be found on my profile?</h4>
+                                    <p>
+                                        On your profile page you can see your personal information as well as all your cars, bookings, rides and reviews.
+                                        You can also change your password here or delete your account.
+                                    </p>
+
+                                    <h4>Who can see my profile?</h4>
+                                    <p>
+                                        Just the drivers whose rides you booked can check your profile.
+                                        No one else has access to your profile.
+                                    </p>
+
+                                    <h4>What can others see about me?</h4>
+                                    <p>
+                                        Other people will see your First name, last name,
+                                        gender as well as your avatar and introduction inserted in "About me" area.
+                                        After they click on the Review button under "About me" area, they can also see all the reviews written about
+                                        you or write their new ones.
+                                    </p>
+
+                                    <h4>How to edit my information?</h4>
+                                    <p>
+                                        Before editing your information, you have to be logged in.
+                                        To edit your personal information, open the profile page by clicking up on the right side of the page on your name.
+                                        You are going to be redirected to the page with information about you.
+                                        You can add your gender and introduction here or change your Name and Surname in case you did a typo while registering.
+                                        When you are finished, do not forget to "Save" your changes with the button under the About Me area.
+                                    </p>
+
+                                    <h4>How to delete my account?</h4>
+                                    <p>
+                                        To delete your account you have to be logged in.
+                                        Open your personal profile page and choose "Delete Account" option on your left side.
+                                        The question  "are really sure you want to delete your profile" do so appears.
+                                        So if you are really sure, click on the "Delete" button and you will be redirected to the page,
+                                        where you have to confirm the deleting procedure  with your current password.
+                                        After you have  Confirmed the password you will be logged out of your account and it will not be possible to log in again with previous data.
+                                        Your account will be permanently deleted.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            !!! Do not forget that except for your account, you are deleting also everything connected to that.
+                                            It means you are deleting your cars, rides, bookings as well as messages. !!!
+                                        </b>
+                                    </p>
+
+                                    <h4>How to change my profile picture?</h4>
+                                    <p>
+                                        Just open your personal profile page and click on the current picture you see there.
+                                        If you haven't changed the picture before, you should see a yellow smile.
+                                        After you click on the picture, you can see several more options from which you can choose the best for you.
+                                        Check the "checkbox" under the pictures with the one you wish to present you   and save it by clicking on the Save button under the options.
+                                        If you decide you do not wish to change the picture, click on "Back to Profile" link next to the "Save" button.
+                                    </p>
+
+                                    <h4>Can I upload my own photo?</h4>
+                                    <p>
+                                        Unfortunately, it is not possible in our current version.
+                                        But we promise you, it will be possible one day.
+                                    </p>
+
+                                    <h4>What should I write in the  "About Me" section?</h4>
+                                    <p>
+                                        You can write there what you want other people to know about you.
+                                        It can be for example who are you, where come you from, what ways are you travelling.
+                                        Because the application is for students of our school, you can write also what are you studying and in which semester you are.
+                                        It is all up to you.
+                                    </p>
+
+                                    <h4>What if I forgot my password?</h4>
+                                    <p>
+                                        When you click on log in, under the form and "confirmation" button, there is the "Forgot your password" link.
+                                        It  will redirect you to the page, where you fill your email address and you will receive an email with a link to reset your password.
+                                        This email part is not implemented yet. We are hoping  we can fix it as soon as possible.
+                                        <br />
+                                    </p>
+
+                                    <h4>How to change my password?</h4>
+                                    <p>
+                                        After you log in, open your personal profile page by click on your name up on the right side of the page.
+                                        You can see the list with different options on your left side.
+                                        Choose "Change Password" and the form for changing the password will appear.
+                                        After you insert the current and new passwords, just click on the button for updating it.
+
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingSix">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                Registration
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <h4>What is needed for registration?</h4>
+                                            <p>
+                                                To register as user you need your First and Last name, Email and an original password. 
+                                                In case you decide to register a car as well,
+                                                you will need to fill out the details:  Model, brand, number plate and how many seats it can offer.
+                                            </p>
+
+                                            <h4>How do I register?</h4>
+                                            <p>
+                                                To register yourself, click on "Register" in the top right corner of the page.
+                                                You will be redirected to the registration form where you have to fill in all of the fields.<br />
+                                                After clicking on the Register button you will receive an email with a confirmation link. You have to follow that link in order to confirm you email address and activate your account. By clicking on the link in the email you will be redirected to the account activation page where you have the option to login and to register a car, if you wish to.
+                                            </p>
+
+                                            <h4>What if I insert wrong information in the registration form?</h4>
+                                            <p>If the information you inserted and already saved are wrong, just check the question "How to edit my information" in "Profile section."</p>
+
+                                            <h4>What if I haven't received a confirmation email?</h4>
+                                            <p>If you can't find the confirmation email, please also check your spam folder. If it is not there either, please contact the administrator by <a href="mailto:zpooladm@outlook.com">email</a>.</p>
+
+                                            <h4>Do I need to register a car?</h4>
+                                            <p>
+                                                You do not have to register a car if you don't plan to offer any rodes yourself. 
+                                                In case you have not decided yet, you can simply add the car later.<br/>
+                                                For more information how to do it, check the "How to register a car" question in "Car section."
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingSeven">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                Reviews
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <h4>What are the reviews for?</h4>
+                                            <p>
+                                                With reviews you can tell others about your experience with the driver, so that other can profit from it. After others see good reviews and
+                                                high rating values, it can encourage them to book the driver's ride. On the other hand, if users see bad reviews and really low score, they can easily find out
+                                                that there is something wrong with the driver.
+                                            </p>
+
+
+                                            <h4>Who can I review?</h4>
+                                            <p>
+                                                You can review all the drivers with who you experienced rides. It means, you can just review the ride after it already happened and you participated it.
+                                            </p>
+
+
+
+                                            <h4>Where can I review other users?</h4>
+                                            <p>
+                                                After you open the profile of the driver, scroll down and under "About me" field, you will see a Review button. Click on it and you will be redirected to
+                                                the page where you can see all previous reviews and also write new one.
+                                            </p>
+
+
+
+                                            <h4>What should write in the review?</h4>
+                                            <p>
+                                                In review, you can write your experience with the driver. If you had any problems, you can explain others what had happened.
+                                                On the other hand, you can also tell other about really good ride and reliable driver.
+                                            </p>
+
+
+
+                                            <h4>Where can I see what others wrote about me?</h4>
+                                            <p>When you open your profile page, on your left side there is also an option for Reviews. On this page you can see
+                                            all the reviews from others about you.</p>
+
+
+
+                                            <h4>What does rating value means?</h4>
+                                            <p>Rating values are from 1 to 5 and are something like score of the ride. 5 is the biggest score the driver can get after
+                                            your ride was without any problems or bad experiences. 1 is the lowest score, what means your ride was really bad experience.</p>
+
+
+                                            <h4>Why was my review deleted?</h4>
+                                            <p>
+                                                Reviews can be deleted by the administration due to inappropriate or offensive content. We expect everyone to be polite and respectful, even if the review is a negative one.
+                                            </p>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+     </div>
+</div>

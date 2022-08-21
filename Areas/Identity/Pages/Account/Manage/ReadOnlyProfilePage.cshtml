@@ -1,0 +1,120 @@
+﻿@page
+@model ZPool.Areas.Identity.Pages.Account.Manage.ReadOnlyProfilePageModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+    var imageFlag = Model.UserAvatarName;
+}
+
+<h3>@Model.FirstName 's Profile</h3>
+
+<!-- Rating line -->
+@{
+    int filled = Convert.ToInt32(Math.Round(Model.UserRating, 0, MidpointRounding.AwayFromZero));
+    int empty = 5 - filled;
+
+    if (filled > 0)
+    {
+        for (int i = 1; i <= filled; i++)
+        {
+            <span class="fa fa-star checked"></span>
+        }
+        if (empty > 0)
+        {
+            for (int i = 1; i <= empty; i++)
+            {
+                <span class="fa fa-star unchecked"></span>
+            }
+        }
+    }
+    else
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            <span class="fa fa-star unchecked"></span>
+        }
+    }
+    <span>(@Model.UserRating)</span>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <br /><br />
+
+            <div class="form-group text-center">
+                @{
+
+                    if (string.IsNullOrEmpty(imageFlag) || imageFlag.Equals("default.png"))
+                    {
+                        <img src="~/images/default.png" id="photo" height="200" width="200">
+                    }
+                    else
+                    {
+
+                        if (imageFlag.Equals("N1.jpg"))
+                        {
+                            <img src="~/images/N1.jpg" id="photo" height="200" width="200">
+                        }
+
+                        if (imageFlag.Equals("N2.jpg"))
+                        {
+                            <img src="~/images/N2.jpg" id="photo" height="200" width="200">
+                        }
+
+                        if (imageFlag.Equals("N3.jpg"))
+                        {
+                            <img src="~/images/N3.jpg" id="photo" height="200" width="200">
+                        }
+
+                        if (imageFlag.Equals("N4.jpg"))
+                        {
+                            <img src="~/images/N4.jpg" id="photo" height="200" width="200">
+                        }
+
+                        if (imageFlag.Equals("N5.jpg"))
+                        {
+                            <img src="~/images/N5.jpg" id="photo" height="200" width="200">
+                        }
+                    }
+                }
+            </div>
+
+            <br /><br />
+
+            <div class="form-group">
+                <label asp-for="UserName"> User Name </label>
+                <input asp-for="UserName" class="form-control rounded-border" disabled />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirstName"> First Name </label>
+                <input asp-for="FirstName" class="form-control rounded-border" disabled />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName"> Last Name </label>
+                <input asp-for="LastName" class="form-control rounded-border" disabled />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserGender"> Gender </label>
+                <input asp-for="UserGender" class="form-control rounded-border" disabled />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">About Me</label>
+                <textarea asp-for="@Model.Introduction" class="form-control" cols="50" rows="10" disabled></textarea>
+
+            </div>
+
+
+           
+            <a class="btn btn-outline-primary rounded-border" asp-area="Identity" asp-route-id="@Model.UserToCheck.Id" asp-page="/Account/Manage/Reviews">Reviews</a>
+
+
+
+        </form>
+    </div>
+</div>

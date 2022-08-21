@@ -1,0 +1,119 @@
+﻿@page
+@using ZPool.Models
+@using ZPool.Pages.Rides
+@using Microsoft.AspNetCore.Identity
+@using ZPool.Services.Interfaces
+@inject SignInManager<AppUser> SignInManager
+@inject IRideService RideService
+
+@model ZPool.Pages.Rides.GetAllRidesModel
+@{
+    ViewData["Title"] = "GetRides";
+}
+
+<h1 style="color:black"> Rides</h1>
+<br>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div>
+        <a asp-page="CreateRide" class="btn btn-outline-success rounded-border">Add New Ride</a>
+    </div>
+}
+<br>
+
+<!-- Search box -->
+<div class="container">
+    <div class="row mb-2 bg-light">
+        <div class="col my-2 py-1 d-flex justify-content-center">
+
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="mx-2"></label>
+                    <input type="text" asp-for="@Model.RideCriteria.DepartureLocation" class="form-control rounded-border" style="max-width: 13rem" placeholder="From where?" />
+                </div>
+                <div class="form-group">
+                    <label class="mx-2"></label>
+                    <input type="text" asp-for="@Model.RideCriteria.DestinationLocation" class="form-control rounded-border" style="max-width: 13rem" placeholder="Where to?" />
+                </div>
+                <div class="form-group">
+                    <label class="mx-2">Date: </label>
+                    <input asp-for="@Model.RideCriteria.StartTime" asp-format="{0:yyyy-MM-ddTHH:mm}" class="form-control rounded-border" style="max-width: 13rem" />
+                </div>
+                <button type="submit" class="btn btn-yellow mx-2">Search ride</button>
+                <a asp-page="GetRides" class="btn btn-outline-dark mx-2 rounded-border">Clear Filter</a>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Search box end -->
+
+<!-- Results -->
+@if (@Model.Rides.Count() > 0)
+{
+    <table class="table">
+
+        <thead>
+            <tr>
+                @*<th> RideID </th>*@
+                <th> Date & Time </th>
+                <th> From</th>
+                <th> To </th>
+                <th> Seats Total</th>
+                <th> Seats Left</th>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <th> Car</th>
+                }
+            </tr>
+        </thead>
+        <tbody class="va-middle">
+
+            @foreach (var item in Model.Rides)
+            {
+                if (item.StartTime > DateTime.Now && RideService.SeatsLeft(item.RideID) > 0)
+                {
+                    <tr class="clickable" onclick="redirect(@item.RideID)" >
+                        <td> @item.StartTime </td>
+                        <td> @item.DepartureLocation </td>
+                        <td> @item.DestinationLocation </td>
+                        <td> @item.SeatsAvailable </td>
+                        <td> @RideService.SeatsLeft(item.RideID)</td>
+                        @if (SignInManager.IsSignedIn(User))
+                         {
+                            <td> @item.Car.NumberPlate </td>
+                         }
+                    <td style="white-space:nowrap;">
+                        <a asp-page="RideDetails" asp-route-id="@item.RideID">Details</a>
+
+                        @if (SignInManager.IsSignedIn(User) && SignInManager.UserManager.GetUserId(User) == item.Car.AppUserID.ToString())
+                        {
+
+                    <a asp-page="/Rides/EditRide" asp-route-id="@item.RideID" style="text-decoration: none" alt="Edit">
+                        <button class="edit-btn ml-2"><i class="fas fa-edit"></i></button>
+                    </a>
+                            
+                            // page "{id}" /DeleteRide?id=80
+                    <a asp-page="/Rides/DeleteRide" asp-route-id="@item.RideID" style="text-decoration: none" alt="Delete">
+                        <button class="delete-btn ml-2"><i class="fas fa-trash-alt"></i></button>
+                    </a>
+
+                        }
+
+                    </td>
+                    </tr>
+                }
+             }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="w-100 text-center mt-5">
+        <h5>@Model.ScreenMessage</h5>
+    </div>
+}
+
+
+
+

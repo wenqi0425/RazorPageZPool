@@ -1,0 +1,19 @@
+﻿@using ZPool.Models
+@inject SignInManager<AppUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">My Profile</a></li>
+
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+    }
+    <li class="nav-item"><a class="nav-link @ManageNavPages.MyCarsNavClass(ViewContext)" id="mycars" asp-page="./MyCars">My Cars</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.MyRidesNavClass(ViewContext)" id="myrides" asp-page="./MyRides">My Rides</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.MyBookingsNavClass(ViewContext)" id="myBookings" asp-page="./MyBookings">My Bookings</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.MyReviewsNavClass(ViewContext)" id="Reviews" asp-page="./Reviews">Reviews</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext) " id="ChangePassword" asp-page="./ChangePassword">Change Password</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.DeletePersonalDataNavClass(ViewContext) " id="DeletePersonalData" asp-page="./PersonalData">Delete Account</a></li>
+</ul>

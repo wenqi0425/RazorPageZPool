@@ -1,0 +1,116 @@
+﻿@page
+@using ZPool.Services.Interfaces
+@model ZPool.Pages.Bookings.GetBookingsModel
+@inject IRideService RideService;
+@{
+    ViewData["Title"] = "GetBookings";
+}
+
+
+
+
+<h1 style="color:black"> Bookings of your Rides</h1>
+<br/>
+<a asp-page="/Rides/CreateRide" class="btn btn-outline-success rounded-border">Add New Ride</a>
+<br/>
+<form asp-page-handler="StatusFilter" method="post" class="my-3">
+    <p>
+        Search Booking Status: <input type="text" asp-for="StatusCriteria" class="form-control rounded-border" style="max-width: 13rem" />
+        <input type="submit" value="Filter" class="btn btn-success rounded-border my-3" />
+        <a asp-page="./GetBookings" class="btn text-primary">Back to Full List </a>
+    </p>
+</form>
+
+<div>
+    <p> @Model.Message </p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th> Date & Time </th>
+            <th> From</th>
+            <th> To </th>
+            <th> Passenger</th>
+            <th> Driver </th>
+            <th> Car</th>
+            <th> Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Bookings != null)
+        {
+            @foreach (var item in Model.Bookings)
+            {
+
+        <tr class="clickable" onclick="redirectToWhoBookedTheRide(@item.RideID)">
+
+            <td>  @item.Ride.StartTime  </td>
+            <td>  @item.PickUpLocation </td>
+            <td>  @item.DropOffLocation </td>
+            <td>  @item.AppUser </td>
+            <td>  @item.Ride.Car.AppUser.UserName </td>
+            <td>  @item.Ride.Car.NumberPlate </td>
+            <td>  @item.BookingStatus </td>
+
+            @if (Model.LoggedInUser.Id == item.Ride.Car.AppUserID && item.BookingStatus == "Accepted" && item.Ride.StartTime > DateTime.Now)
+                {
+                    <td>
+                        <div class="form group">
+                            <form asp-page-handler="Cancel" method="post">
+                                <button class="btn btn-danger rounded-border">Cancel</button>
+                                <input type="hidden" name="id" value="@item.BookingID" />
+                                @*dictionary*@
+                            </form>
+                        </div>
+                    </td>
+                }
+    
+
+        @if (item.Ride.Car.AppUserID == Model.LoggedInUser.Id)
+        {
+            @if (item.BookingStatus == "Pending" && item.Ride.StartTime > DateTime.Now)
+            {
+                <td>
+                    <div class="form group">
+                        @if (RideService.SeatsLeft(item.Ride.RideID) > 0)
+                        {
+                            <form asp-page-handler="Accept" method="post">
+                                <button class="btn btn-success rounded-border">Accept</button>
+                                <input type="hidden" name="id" value="@item.BookingID" />
+                            </form>
+                        }
+                        else
+                        {
+                            <button disabled class="btn rounded-border btn-outline-dark tooltip">
+                                Accept
+                                <span class="tooltiptext">The ride is fully booked.</span>
+                            </button>
+                        }
+                    </div>
+                </td>
+                <td>
+                    <div class="form group">
+                        <form asp-page-handler="Reject" method="post">
+                            <button class="btn btn-primary rounded-border">Reject</button>
+                            <input type="hidden" name="id" value="@item.BookingID" />
+                        </form>
+                    </div>
+                </td>
+            }
+
+
+
+        }
+        </tr>
+            }
+        }
+
+</table>
+
+@*<div>
+        <a asp-page="GetBookings">Back to List</a>
+    </div>*@
+
+

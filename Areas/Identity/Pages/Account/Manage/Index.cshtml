@@ -1,0 +1,151 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+    var imageFlag = Model.UserAvatarName;
+}
+
+<h3>@Model.FirstName 's Profile</h3>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<!-- Rating line -->
+@{
+    int filled = Convert.ToInt32(Math.Round(Model.UserRating, 0, MidpointRounding.AwayFromZero));
+    int empty = 5 - filled;
+
+    if (filled > 0)
+    {
+        for (int i = 1; i <= filled; i++)
+        {
+            <span class="fa fa-star checked"></span>
+        }
+        if (empty > 0)
+        {
+            for (int i = 1; i <= empty; i++)
+            {
+                <span class="fa fa-star unchecked"></span>
+            }
+        }
+    }
+    else
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            <span class="fa fa-star unchecked"></span>
+        }
+    }
+}
+    <span>(@Model.UserRating)</span>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="profile-form" method="post">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group d-flex justify-content-center">
+                    <div class="avatar-div" title="choose your avatar">
+                        <a asp-page="./SelectAvatar">
+                            @{
+                                if (imageFlag.Equals("default.png"))
+                                {
+                                    <img src="~/images/default.png" id="photo" height="200" width="200">
+                                }
+
+                                if (imageFlag.Equals("N1.jpg"))
+                                {
+                                    <img src="~/images/N1.jpg" id="photo" height="200" width="200">
+                                }
+
+                                if (imageFlag.Equals("N2.jpg"))
+                                {
+                                    <img src="~/images/N2.jpg" id="photo" height="200" width="200">
+                                }
+
+                                if (imageFlag.Equals("N3.jpg"))
+                                {
+                                    <img src="~/images/N3.jpg" id="photo" height="200" width="200">
+                                }
+
+                                if (imageFlag.Equals("N4.jpg"))
+                                {
+                                    <img src="~/images/N4.jpg" id="photo" height="200" width="200">
+                                }
+
+                                if (imageFlag.Equals("N5.jpg"))
+                                {
+                                    <img src="~/images/N5.jpg" id="photo" height="200" width="200">
+                                }
+                            }
+
+                            <input type="file" id="file">
+                            <label for="file" id="uploadBtn"></label>
+                        </a>
+                    </div>
+                    <style>
+                        .avatar-div {
+                            height: 150px;
+                            width: 150px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            border: 1px solid grey;
+                        }
+
+                        #photo {
+                            height: 100%;
+                            width: 100%;
+                        }
+                    </style>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Username"></label>
+                    <input asp-for="Username" class="form-control rounded-border" disabled />
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control rounded-border" />
+                    <span asp-validation-for="Input.@Model.FirstName"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control rounded-border" />
+                    <span asp-validation-for="Input.@Model.LastName"></span>
+                </div>
+
+                <label for="genders">Choose your gender:</label><br />
+
+                <div class="form-group">
+                    <select asp-for="@Model.UserGender" class="form-control rounded-border" asp-items="@Model.GenderList">
+                        <option value="">-- Select your gender --</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Nonbinary">Nonbinary</option>
+                        <option value="Don't want to say">Don't want to say</option>
+
+                    </select>
+                    <span asp-validation-for="@Model.UserGender"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control rounded-border" disabled />
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="control-label">About Me</label>
+                    <textarea asp-for="@Model.Introduction" class="form-control rounded-border" cols="50" rows="6"></textarea>
+                </div>
+
+                <button id="update-profile-button" type="submit" class="btn btn-success rounded-border">Save</button>
+            </form>
+        </div>
+
+    </div>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

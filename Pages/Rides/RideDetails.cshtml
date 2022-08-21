@@ -1,0 +1,279 @@
+﻿@page "{id}"
+@using ZPool.Models
+@using ZPool.Services.Interfaces
+@model ZPool.Pages.Rides.RideModel
+@inject IRideService RideService;
+@inject SignInManager<AppUser> SignInManager;
+@{ ViewData["Title"] = "RideDetails"; }
+
+<h3>Ride Details</h3>
+<div class="container align-content-center pt-4">
+    <div class="row" style="max-width: 1100px">
+        <div class="col col-md-8 bg-light p-3" style="border-radius: 15px">
+            <ul class="list-unstyled">
+                <li class="h4 mb-0 align-middle">@Model.Ride.DepartureLocation</li>
+                <li class="align-middle pl-4 py-3"><img src="/images/icons/arrow_down_24dp.svg" />
+                <li class="h4 mb-0 align-middle">@Model.Ride.DestinationLocation</li>
+            </ul>
+            <p>@Model.Ride.StartTime.ToString("dddd, dd.MM.yyyy HH:mm", Model.culture)</p>
+
+            <!-- <span> id="distance"*
+                1）<> place holder or node.
+                2）<span> is an inline container, <div> is a block-level element
+                3）<span> id="distance"，to located the node and give value to it.
+                4）make static text to become dynamic.
+            -->
+            <div class="mt-3">
+                <p class="m-0">The route is <span id="distance" class="text-success"></span> long. The trip will take approximately <span id="duration" class="text-success"></span>.</p>
+            </div>
+
+        </div>
+        <div class="col-1"></div>
+        <div class="col col-md-3 bg-light p-3" style="border-radius: 15px">
+            <div class="text-center">
+                <h5>Available seats:</h5>
+                <h1>@Model.SeatsLeft</h1><h3>of @Model.Ride.SeatsAvailable</h3>
+                <div class="mt-3">
+                    <form method="post">
+
+                        @if (Model.CurrentUser == null)
+                        {
+            <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="/Rides/RideDetails/@Model.Ride.RideID">
+                You must be logged in<br /> to book a ride.
+            </a> }
+                        else if (Model.CurrentUser != null && Model.CurrentUser.Id == Model.Ride.Car.AppUserID)
+                        {
+            <button disabled class="btn rounded-border btn-outline-dark tooltip">
+                Book ride
+                <span class="tooltiptext">You can't book your own ride.</span>
+            </button> }
+                        else if (Model.SeatsLeft == 0)
+                        {
+            <button disabled class="btn rounded-border btn-outline-dark tooltip">
+                Book ride
+                <span class="tooltiptext">The ride is fully booked.</span>
+            </button> }
+
+                        else if (Model.AlreadyBooked)
+                        {
+            <button disabled class="btn rounded-border btn-outline-dark tooltip">
+                Book ride
+                <span class="tooltiptext">You have already booked this ride.</span>
+            </button> }
+
+                        else
+                        {
+            <input type="number" asp-for="@Model.RideId" hidden />
+                            <button type="submit" class="btn btn-yellow">Book ride</button>}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- map container -->
+    @*<div class="mt-3">
+            <p class="m-0">The route is <span id="distance" class="text-success"></span> long. The trip will take <span id="duration" class="text-success"></span>.</p>
+        </div>*@
+
+    <div class="mt-2 rounded-border" id="map" style="height: 400px; width: 100%">
+    </div>
+
+    <!-- for Driver information -->
+    <div class="row mt-4">
+        <div class="col col-md-4">
+            <div style="max-width: 15rem; max-height: 15rem">
+                @if (Model.Ride.Car.AppUser.AvatarName != null)
+                {
+    <img src="/images/@Model.Ride.Car.AppUser.AvatarName" style="max-width: 100%; object-fit: contain" /> }
+                else
+                {
+    <img src="/images/userimage_blank.png" style="max-width: 100%; object-fit: contain" />}
+            </div>
+        </div>
+        <div class="col col-md-8">
+            <ul class="list-unstyled">
+                @if (SignInManager.IsSignedIn(User))
+                {
+    <li>
+        <h4>
+            <a asp-area="Identity"
+               asp-page="/Account/Manage/ReadOnlyProfilePage"
+               asp-route-id="@Model.Ride.Car.AppUser.Id"
+               style="text-decoration: none">
+                @Model.Ride.Car.AppUser.UserName
+            </a>
+        </h4>
+    </li> }
+                else
+                {
+    <li><h4>@Model.Ride.Car.AppUser.UserName</h4></li>}
+
+                <!-- Rating -->
+                <li>
+                    @{ int filled = Convert.ToInt32(Math.Round(Model.UserRating, 0, MidpointRounding.AwayFromZero));
+                                    int empty = 5 - filled;
+
+                                    if (filled > 0)
+                                    {
+                                        for (int i = 1; i <= filled; i++)
+                                        {
+                        <span class="fa fa-star checked"></span> }
+                                        if (empty > 0)
+                                        {
+                                            for (int i = 1; i <= empty; i++)
+                                            {
+                        <span class="fa fa-star unchecked"></span> }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 1; i <= 5; i++)
+                                        {
+                        <span class="fa fa-star unchecked"></span> }
+                                    }
+                        <span>(@Model.UserRating)</span> }
+                </li>
+
+                <!-- Car -->
+                <li>Car: @Model.Ride.Car</li>
+
+                @if (Model.CurrentUser != null && Model.CurrentUser.Id != Model.Ride.Car.AppUserID)
+                {
+    <li>
+        <form method="post" asp-page-handler="Send" class="mt-3">
+            <div class="form-group" style="width: 15rem">
+                <input hidden asp-for="RideId" value="@Model.RideId" />
+                <input hidden asp-for="Message.SenderId" value="@Model.CurrentUser.Id" />
+                <input hidden asp-for="Message.ReceiverId" value="@Model.Ride.Car.AppUserID" />
+                <textarea rows="4" class="form-control" asp-for="Message.MessageBody" placeholder="Send me a message"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-yellow rounded-border">Send message</button>
+            </div>
+        </form>
+    </li>}
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="row pt-5">
+        <div class="col d-flex justify-content-center">
+            <ul class="list-inline">
+
+                @if (Model.CurrentUser != null)
+                {
+    @if (Model.Ride.Car.AppUserID == Model.CurrentUser.Id)
+    {
+
+<li class="list-inline-item">
+    <a class="btn btn-outline-primary rounded-border" asp-page="EditRide" asp-route-id="@Model.RideId">Edit ride</a>
+</li>
+                    <li class="list-inline-item">
+
+                        <!-- Button trigger -->
+                        <button type="button" class="btn btn-outline-danger rounded-border" data-toggle="modal" data-target="#deleteRide">
+                            Delete ride
+                        </button>
+
+                        <!-- Modal pop-up -->
+                        <div class="modal fade" id="deleteRide" tabindex="-1" role="dialog" aria-labelledby="deleteRideLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteRideLabel">Delete this ride?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body font-weight-bold">
+                                        On: @Model.Ride.StartTime.Date.ToString("dd.MM.yyyy")<br />
+                                        From: @Model.Ride.DepartureLocation<br />
+                                        To: @Model.Ride.DestinationLocation<br />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form method="post">
+                                            <input hidden asp-for="@Model.RideId" />
+                                            <button type="submit" class="btn btn-danger" asp-route-rideId="@Model.RideId" asp-page-handler="Delete">Delete ride</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>}}
+
+                <li class="list-inline-item">
+                    <a class="btn btn-outline-primary rounded-border mbl-4" asp-page="GetRides">Back to list of Rides</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+@*JavaScript for GoogleMap functions
+  document: current page
+*@
+
+
+<script type="text/javascript">
+
+    var distanceText = document.getElementById("distance");
+    var durationText = document.getElementById("duration");
+
+    async function initMap() {
+    /*create an instance of google.maps.DirectionsService()
+        1）DirectionsService with the route() method
+           directionsService.route(request, function(result, status){ }
+        2）receiving request, when the service request is finished
+        3) then to implement the callback function 回调函数 function(result, status)
+        4) return the results of the function: distance and durations.
+        4) callback, aysnc method, Google 是个大公司，太多人同时用了，所以提供的service，应该是异步的
+     
+      create an instance of google.maps.DirectionsRenderer()
+        1) The DirectionsRenderer handles display of the polyline (画图，算法，dijkstra algorithm，两点之间找最短路径）
+        2）between the indicated locations
+      */
+
+    var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        var denmark = new google.maps.LatLng(56.2639, 9.5018);
+        var mapOptions = {
+            zoom:7,
+            center: denmark
+        }
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        directionsRenderer.setMap(map);
+
+        calcRoute(directionsService, directionsRenderer);
+    }
+
+    function calcRoute(directionsService, directionsRenderer) {
+        var start = "@Model.Ride.DepartureLocation";
+        var end = "@Model.Ride.DestinationLocation";
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING'
+        };
+
+        // function(result, status) is the callback function
+        // send a request to do the function and return the function's results.
+
+        directionsService.route(request, function(result, status) {
+            if (status == 'OK') {
+
+                directionsRenderer.setDirections(result); // draw the polyline
+                distanceText.innerText = result.routes[0].legs[0].distance.text;
+                durationText.innerText = result.routes[0].legs[0].duration.text;
+            }
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0ahLGaUFf7DglPgI7qxJHl4i6rwdHTcs&callback=initMap&libraries=&v=weekly"
+        async></script>

@@ -1,0 +1,150 @@
+﻿@page
+@using ZPool.Services.Interfaces
+@model ZPool.Areas.Identity.Pages.Account.Manage.WhoBookTheRideModel
+@inject IRideService RideService;
+@{
+    ViewData["Title"] = "Who Book The Ride";
+    ViewData["ActivePage"] = ManageNavPages.MyRides;
+}
+
+<h3>Who booked this ride?</h3>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">  Date & Time  </dt>
+        <dd class="col-sm-10"> @Html.DisplayFor(model => model.MyRide.StartTime)   </dd>
+
+        <dt class="col-sm-2">  From   </dt>
+        <dd class="col-sm-10"> @Html.DisplayFor(model => model.MyRide.DepartureLocation)  </dd>
+
+        <dt class="col-sm-2">  To
+        <dd class="col-sm-10"> @Html.DisplayFor(model => model.MyRide.DestinationLocation) </dd>
+
+        <dt class="col-sm-2">  Car </dt>
+        <dd class="col-sm-10"> @Html.DisplayFor(model => model.MyRide.Car.NumberPlate) </dd>
+    </dl>
+    <hr /><br />
+
+    <h4>Bookings from:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:120px">First Name</th>
+                <th style="width:120px">Last Name</th>
+                <th style="width:120px">Gender</th>
+                <th style="width:120px">Profile</th>
+                <th style="width:120px">Status</th>
+                <th style="width:120px"></th>
+                <th style="width:120px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*</br>*@
+            @*<div>*@
+            @{ foreach (var booking in Model.BookingsOfOneRide)
+                {
+                    if (booking != null)
+                    {
+                        if (booking.AppUser != null)
+                        {
+
+                            <tr>
+                                <td>@booking.AppUser.FirstName</td>
+                                <td>@booking.AppUser.LastName</td>
+                                <td>@booking.AppUser.Gender</td>
+                                <td>
+                                    <a asp-page="./ReadOnlyProfilePage" asp-route-id="@booking.AppUserID">
+                                        @{
+                                            var imageFlag = booking.AppUser.AvatarName;
+                                            if (string.IsNullOrEmpty(imageFlag) || imageFlag.Equals("default.png"))
+                                            {
+                                                <img src="~/images/default.png" id="photo" height="50" width="50" title="click me">
+                                            }
+                                            else
+                                            {
+                                                if (imageFlag.Equals("N1.jpg"))
+                                                {
+                                                    <img src="~/images/N1.jpg" id="photo" height="50" width="50" title="click me">
+                                                }
+
+                                                if (imageFlag.Equals("N2.jpg"))
+                                                {
+                                                    <img src="~/images/N2.jpg" id="photo" height="50" width="50" title="click me">
+                                                }
+
+                                                if (imageFlag.Equals("N3.jpg"))
+                                                {
+                                                    <img src="~/images/N3.jpg" id="photo" height="50" width="50" title="click me">
+                                                }
+
+                                                if (imageFlag.Equals("N4.jpg"))
+                                                {
+                                                    <img src="~/images/N4.jpg" id="photo" height="50" width="50" title="click me">
+                                                }
+
+                                                if (imageFlag.Equals("N5.jpg"))
+                                                {
+                                                    <img src="~/images/N5.jpg" id="photo" height="50" width="50" title="click me">
+                                                }
+                                            }
+                                        }
+                                    </a>
+                                </td>
+                                <td>@booking.BookingStatus</td>
+
+                                @if (booking.BookingStatus == "Accepted" && booking.Ride.StartTime>DateTime.Now)
+                                {
+                                    <td>
+                                        <div class="form group">
+                                            <form asp-page-handler="Cancel" method="post">
+                                                <button class="btn btn-danger rounded-border">Cancel</button>
+                                                <input type="hidden" name="id" value="@booking.BookingID" />
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
+
+                                @if (booking.BookingStatus == "Pending" && booking.Ride.StartTime>DateTime.Now)
+                                {
+                                    <td>
+                                        <div class="form group">
+                                            @if (RideService.SeatsLeft(Model.MyRide.RideID)>0)
+                                            {
+                                                <form asp-page-handler="Accept" method="post">
+                                                    <button class="btn btn-success rounded-border">Accept</button>
+                                                    <input type="hidden" name="id" value="@booking.BookingID"/>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <button disabled class="btn rounded-border btn-outline-dark tooltip">
+                                                    Accept
+                                                    <span class="tooltiptext">The ride is fully booked.</span>
+                                                </button>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form group">
+                                            <form asp-page-handler="Reject" method="post">
+                                                <button class="btn btn-primary rounded-border">Reject</button>
+                                                <input type="hidden" name="id" value="@booking.BookingID" />
+                                            </form>
+                                        </div>
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+                    }
+                }
+
+            }
+    </table>
+
+</div>
+<div>
+    <br /><hr />
+    <input type="hidden" asp-for="MyRide.RideID" />
+    <a asp-page="./MyRides">Back to My Rides</a>
+</div>

@@ -1,0 +1,114 @@
+﻿@page
+@using ZPool.Services.Interfaces
+@using System.Reflection
+@model ZPool.Pages.Messages.MessagesModel
+@inject IMessageService MessageService;
+@{
+    ViewData["Title"] = "My Messages";
+}
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <h4>My Messages</h4>
+    </div>
+
+
+    @* before reply: page of /Messages/Messages*@
+    <form method="post">
+        <div class="row pt-4 d-flex justify-content-center">
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label class="control-label">From:</label>
+                    <input asp-for="@Model.CurrentUser.UserName" disabled class="form-control rounded-border" />
+                    <input asp-for="@Model.NewMessage.SenderId" hidden />  @*hidden, grey*@
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">To:</label>
+                    <input asp-for="@Model.NewMessage.Receiver.UserName" disabled class="form-control rounded-border" />
+                    <input asp-for="@Model.NewMessage.ReceiverId" hidden />
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label class="control-label">Message text:</label>
+                    @*class="form-control" automatically receive global styling with Bootstrap*@
+                    <textarea asp-for="@Model.NewMessage.MessageBody" class="form-control rounded-border" rows="5"></textarea>
+                    <div asp-validation-summary="All" class="text-secondary"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            @if (Model.NewMessage == null || Model.NewMessage.ReceiverId == 0)
+            {
+                <button type="submit" class="btn btn-yellow" disabled>Send</button> }
+            else
+            {
+                <button type="submit" asp-page-handler="Send" class="btn btn-yellow">Send</button>            }
+        </div>
+    </form>
+    
+    @* after reply: page of Messages/Messages?handler=Reply *@
+    <div class="row justify-content-center pt-4">
+        <div class="col-8 d-flex flex-column border rounded-border ">
+            @{ int x = Model.Messages.Count > Model.ListLength ? Model.ListLength : Model.Messages.Count;
+
+                for (int i = 0; i < x; i++)   // x: number of messages
+                {
+                    @if (Model.CurrentUser.Id == Model.Messages[i].ReceiverId)
+
+                    {<!--Received message-->
+                        <div class="card rounded-border m-3 align-self-start bg-yellow" style="width: 20rem">
+                            <div class="card-body">
+                                <h5 class="card-title">From: @Model.Messages[i].Sender.UserName</h5>
+                                <h6 class="card-subtitle mb-2">@Model.Messages[i].SendingDate</h6>
+                                <p class="card-text">@Model.Messages[i].MessageBody</p>
+
+                                @*Reply function*@
+                                <form method="post">
+                                    <input hidden asp-for="NewMessage.ReceiverId" value="@Model.Messages[i].SenderId" />
+                                    <input hidden asp-for="NewMessage.Receiver.UserName" value="@Model.Messages[i].Sender.UserName" />
+                                    <input hidden asp-for="NewMessage.SenderId" value="@Model.CurrentUser.Id" />
+                                    <input hidden asp-for="ListLength" value="@x" />
+                                    <button type="submit" asp-page-handler="Reply" class="btn btn-sm btn-secondary">Reply</button>  @*must click reply*@
+                                </form>
+                            </div>
+                        </div> }
+                    else if (Model.CurrentUser.Id == Model.Messages[i].SenderId)  
+
+                    { <!--Sent message-->
+                        <div class="card rounded-border m-3 align-self-end bg-secondary text-light" style="width: 20rem">
+                            <div class="card-body">
+                                <h5 class="card-title">To: @Model.Messages[i].Receiver.UserName</h5>
+                                <h6 class="card-subtitle mb-2">@Model.Messages[i].SendingDate</h6>
+                                <p class="card-text">@Model.Messages[i].MessageBody</p>
+                            </div>
+                        </div> }
+                    else
+                    {
+                        <p>An error has occurred.</p>}
+
+                    @if (!@Model.Messages[i].IsRead && @Model.Messages[i].ReceiverId == Model.CurrentUser.Id)
+                    {
+                        MessageService.SetStatusToRead(@Model.Messages[i].Id);
+                    } } }
+
+        </div>
+    </div>
+    
+    @* Load more messages *@
+    <div class="row justify-content-center pt-3">
+        <form method="post">
+            <input hidden type="number" asp-for="ListLength" value="@Model.ListLength" />
+
+            @*ListLength += 5*@
+            <button type="submit" asp-page-handler="Load" class="btn btn-outline-secondary rounded-border">Load more messages</button>
+        </form>
+    </div>
+
+
+</div>

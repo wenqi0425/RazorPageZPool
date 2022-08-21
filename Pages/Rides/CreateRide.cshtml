@@ -1,0 +1,56 @@
+﻿@page
+@model ZPool.Pages.Rides.CreateRideModel
+@{
+    ViewData["Title"] = "CreateRide";
+}
+
+
+
+<h2>Create a Ride</h2>
+<div class="form-group">
+    @*<div class="col-md-4">*@
+
+        <form method="post">
+            <div asp-validation-summary="None" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Ride.StartTime" class="control-label"></label>
+                <input asp-for="@Model.Ride.StartTime" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm", Model.culture)" class="form-control rounded-border" style="max-width: 13rem" />
+                <span asp-validation-for="@Model.Ride.StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Ride.DepartureLocation" class="control-label"></label>
+                <input asp-for="@Model.Ride.DepartureLocation" class="form-control rounded-border" style="max-width: 13rem" />
+                <span asp-validation-for="@Model.Ride.DepartureLocation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Ride.DestinationLocation" class="control-label"></label>
+                <input asp-for="@Model.Ride.DestinationLocation" class="form-control rounded-border" style="max-width: 13rem" />
+                <span asp-validation-for="@Model.Ride.DestinationLocation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Ride.SeatsAvailable" class="control-label"></label>
+                <input asp-for="@Model.Ride.SeatsAvailable" class="form-control rounded-border" style="max-width: 13rem" />
+                <p class="text-danger"> @Model.Message</p>
+                <span asp-validation-for="@Model.Ride.SeatsAvailable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*anonymous array*@
+                <label asp-for="@Model.Ride.CarID" class="control-label"></label>
+                <select asp-for="@Model.Ride.CarID" class="form-control rounded-border" style="max-width: 13rem"
+                        asp-items="@Model.registeredCars">
+                    <option value="">--Select a Car--</option>
+                </select>
+                <span asp-validation-for="@Model.Ride.CarID" class="text-danger"></span>
+            </div>
+            <div class="form group">
+                <input type="submit" value="Create" class="btn btn-outline-success rounded-border" />
+                <a asp-area="Identity" asp-page="/Account/Manage/MyRides" class="ml-3">Back to MyRides</a>
+            </div>
+        </form>
+
+    @*</div>*@
+</div>

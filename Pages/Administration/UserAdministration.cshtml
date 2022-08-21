@@ -1,0 +1,58 @@
+﻿@page
+@model ZPool.Pages.Administration.UserAdministrationModel
+@{
+    ViewData["Title"] = "Admin: Users";
+}
+
+<div class="container">
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+    <h3> Administration: Users</h3>
+    <div class="row mb-2">
+        <div class="col">
+            <form method="get">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label asp-for="SearchCriteria">Find users by email: </label>
+                        <input type="email" asp-for="SearchCriteria" class="form-control rounded-border ml-2"/>
+                        <button type="submit" class="btn btn-yellow rounded-border ml-2">Search</button>
+                        <a asp-page="UserAdministration" class="btn btn-outline-primary rounded-border ml-2">Clear filter</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>E-Mail</th>
+                </thead>
+
+                <tbody>
+                    @foreach (var u in Model.Users)
+                    {
+                    <tr>
+                        <td>@u.Id</td>
+                        <td>@u.UserName</td>
+                        <td>@u.FirstName @u.LastName</td>
+                        <td>@u.Email</td>
+                        <td>
+                            <a asp-area="Identity"
+                               asp-page="/Account/Manage/ReadOnlyProfilePage" asp-route-id="@u.Id">Profile</a>
+                        </td>
+                        @*Query string*@
+                        <td><a asp-page="EditUser" asp-route-userId="@u.Id">Edit</a></td>
+                        <td><a asp-page="DeleteUser" asp-route-userId="@u.Id" class="text-danger">Delete</a></td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>

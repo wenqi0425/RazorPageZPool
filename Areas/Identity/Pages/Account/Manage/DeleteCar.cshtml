@@ -1,0 +1,56 @@
+﻿@page
+@model ZPool.Areas.Identity.Pages.Account.Manage.DeleteCarModel
+@{
+    ViewData["Title"] = $"Delete Car";
+    ViewData["ActivePage"] = ManageNavPages.MyCars;
+}
+
+@*<h1>Delete Car</h1>*@
+
+<h3>Are you sure you want to delete this car? <br /></h3>
+<p>All associated Rides and Bookings will be deleted as well.</p> 
+<div>
+    
+    <hr />
+    <form method="post">
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Car.Brand)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Car.Brand)
+
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Car.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Car.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Car.Model)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Car.Model)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Car.NumberPlate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Car.NumberPlate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Car.NumberOfSeats)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Car.NumberOfSeats)
+            </dd>
+        </dl>
+
+
+        <input type="hidden" asp-for="Car.CarID" />
+        <input type="submit" value="Delete" class="btn btn-danger rounded-border" /> |
+        <a asp-page="./MyCars">Back to My Cars</a>
+    </form>
+</div>

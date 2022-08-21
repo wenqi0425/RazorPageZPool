@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-ZPool-B51AF83A-AFBF-4907-B1E8-446E21817174</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Ratings\**" />
+    <Content Remove="Pages\Ratings\**" />
+    <EmbeddedResource Remove="Pages\Ratings\**" />
+    <None Remove="Pages\Ratings\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Identity\Pages\Account\Manage\BookingHistory.cshtml.cs" />
+    <Compile Remove="Areas\Identity\Pages\Account\Manage\IBookingService.cs" />
+    <Compile Remove="Areas\Identity\Pages\Account\Manage\Index1.cshtml.cs" />
+    <Compile Remove="Migrations\20210511103800_updateBookingModel5.cs" />
+    <Compile Remove="Migrations\20210511103800_updateBookingModel5.Designer.cs" />
+    <Compile Remove="Migrations\20210517123501_avatarName.cs" />
+    <Compile Remove="Migrations\20210517123501_avatarName.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\Manage\BookingHistory.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\Manage\Index1.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.12.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="VisioForge.DotNet.Core.TRIAL" Version="14.0.42" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\N1.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
